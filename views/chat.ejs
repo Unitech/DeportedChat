@@ -1,0 +1,57 @@
+/*
+ *
+ * Initiator script for Chat
+ *
+ */
+
+var head = document.getElementsByTagName('head')[0];
+var username = "<%= username %>";
+
+function append_js(url) {
+    var script = document.createElement('script');
+
+    script.type = 'text/javascript';
+    script.src = url;
+    head.appendChild(script);    
+}
+
+function append_css(url) {
+    var link  = document.createElement('link');
+
+    link.rel  = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    link.media = 'all';
+    head.appendChild(link);
+}
+
+if (typeof jQuery == 'undefined')
+    append_js('http://code.jquery.com/jquery-1.7.2.min.js');
+
+append_js('<%= ABSOLUTE_URL %>/nowjs/now.js');
+append_js('<%= ABSOLUTE_URL %>/javascripts/chat.js');
+
+append_css('<%= ABSOLUTE_URL %>/stylesheets/chat.css');
+
+function jqueryLoaded() {
+
+    $().ready(function() {
+	
+	setTimeout(function() {
+	    init_cookie();
+    	    init_chat(username, 'Global');
+	}, 220);
+    });
+}
+
+function checkJquery() {
+    if (window.$ && !(typeof init_cookie == 'undefined')) {
+        jqueryLoaded();
+    } else {
+        window.setTimeout(checkJquery, 100);
+    }
+}
+
+checkJquery();
+
+
