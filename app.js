@@ -6,7 +6,6 @@
 var express = require('express');
 var app = module.exports = express.createServer();
 
-
 // Configuration
 var RedisStore = require('connect-redis')(express);
 var MemStore = express.session.MemoryStore;
@@ -46,27 +45,26 @@ app.get('/', function(req, res){
     res.render('index', { username : req.session.user })
 });
 
-app.get('/chater.js', function(req, res){
+app.get('/chat.js', function(req, res){
     if (!req.session.user) {
 	req.session.user = 'FC' + index++;
     }
+
     res.render('chat', {layout : false,
 			username : req.session.user,
-			ABSOLUTE_URL : ABSOLUTE_URL});
+			ABSOLUTE_URL : 'http://' + req.headers.host});
 });
 
-app.listen(3000);
+
+app.listen(3001);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 // ------------------------------------------------------- //
 
-var nowjs = require("now", {
+var nowjs = require("now", {});
 
-});
 var everyone = nowjs.initialize(app);
 
 everyone.now.distributeMessage = function(message){
     everyone.now.receiveMessage(this.now.name, message);
 };
-
-
