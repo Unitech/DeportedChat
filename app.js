@@ -56,7 +56,9 @@ app.get('/chat.js', function(req, res){
 });
 
 
-app.listen(3001);
+var port = process.env.PORT || 5000;
+
+app.listen(port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 // ------------------------------------------------------- //
