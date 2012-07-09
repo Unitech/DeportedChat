@@ -56,12 +56,20 @@ app.get('/chat.js', function(req, res){
 });
 
 
-var port = process.env.PORT || 5000;
+/* Todo
+ *
+ * Room compared to each referrer URL
+ * Posting a message remotely
+ * Logging message
+ */
 
-app.listen(port);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+app.get('/post/message', function(req, res) {
+});
 
-// ------------------------------------------------------- //
+
+app.listen(process.env.PORT || 2222);
+
+// --------------- CHAT PART ------------------------------------- //
 
 var nowjs = require("now", {});
 
